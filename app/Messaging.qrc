@@ -1,0 +1,6 @@
+<RCC>
+	<qresource prefix="/">
+		<file>Messaging.qml</file>
+		<file>Notification.qml</file>
+	</qresource>
+</RCC>
