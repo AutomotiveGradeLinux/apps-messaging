@@ -12,6 +12,7 @@ Item {
         Label {
             text: '<b>' + name + '</b>'
             font.pixelSize: 42
+            font.family: "Bitstream Vera", "Noto Emoji"
             wrapMode: Text.WordWrap
         }
         Label {
@@ -20,6 +21,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             font.pixelSize: 32
+            font.family: "Bitstream Vera", "Noto Emoji"
             wrapMode: Text.WordWrap
         }
     }
