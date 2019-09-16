@@ -6,6 +6,8 @@ SOURCES = main.cpp
 CONFIG += link_pkgconfig
 PKGCONFIG += libhomescreen qlibwindowmanager qtappfw libafbwsc
 
-RESOURCES += Messaging.qrc
+RESOURCES += \
+    Messaging.qrc \
+    images/images.qrc
 
 include(app.pri)

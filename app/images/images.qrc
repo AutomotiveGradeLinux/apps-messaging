@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+	<file>ic_contacts_48px.svg</file>
+	<file>ic_schedule_48px.svg</file>
+	<file>ic_dialpad_48px.svg</file>
+	<file>ic_call_missed_48px.svg</file>
+	<file>ic_call_received_48px.svg</file>
+	<file>ic_call_made_48px.svg</file>
+    </qresource>
+</RCC>

@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2016 The Qt Company Ltd.
  * Copyright (C) 2019 Konsulko Group
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,66 +18,40 @@
 import QtQuick 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.4
-import AGL.Demo.Controls 1.0
 
 ApplicationWindow {
     id: root
 
-    width: 1080 * container.scale
-    height: 1487 * container.scale
-
-    Connections {
-        target: messaging
-
-        onNotificationEvent: {
-            notificationModel.append({"name": message.sender.fn, "message": message.message })
-            notificationView.currentIndex = notificationModel.count - 1
-        }
-    }
-
-    ListModel {
-        id: notificationModel
-    }
+    width: container.width * container.scale
+    height: container.height * container.scale
 
     Item {
         id: container
+        anchors.centerIn: parent
         width: 1080
         height: 1487
         scale: screenInfo.scale_factor()
-        anchors.centerIn: parent
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
 
-        // ----- Childs
-        Label {
-            id: title
-            font.pixelSize: 48
-            text: "Notifications"
-            anchors.horizontalCenter: parent.horizontalCenter
+        TabBar {
+            id: bar
+            width: parent.width
+            contentHeight: 160
+
+            TabImageButton {
+                icon: "./images/ic_contacts_48px.svg"
+                text: "Alerts"
+                font.pixelSize: 50
+            }
         }
 
-        ListView {
-            id: notificationView
-            model: notificationModel
-
-            anchors.margins: 50
-            anchors.top: title.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            spacing: 40
-
-            highlight: Rectangle {
-                color: "transparent"
-                radius: 5
-                border.color: "white"
-                border.width: 1
+        StackLayout {
+            anchors.top: bar.bottom
+            width: parent.width
+            height: parent.height - bar.height
+            currentIndex: bar.currentIndex
+            NotificationPage {
+                id: alerts
             }
-            highlightFollowsCurrentItem: true
-
-            delegate: Notification { }
         }
     }
 }

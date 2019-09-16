@@ -2,5 +2,7 @@
 	<qresource prefix="/">
 		<file>Messaging.qml</file>
 		<file>Notification.qml</file>
+		<file>NotificationPage.qml</file>
+		<file>TabImageButton.qml</file>
 	</qresource>
 </RCC>
