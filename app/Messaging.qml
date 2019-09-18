@@ -18,6 +18,7 @@
 import QtQuick 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.4
+import AGL.Demo.Controls 1.0
 
 ApplicationWindow {
     id: root
@@ -42,6 +43,12 @@ ApplicationWindow {
                 text: "Alerts"
                 font.pixelSize: 50
             }
+
+            TabImageButton {
+                icon: "./images/ic_contacts_48px.svg"
+                text: "Compose"
+                font.pixelSize: 50
+            }
         }
 
         StackLayout {
@@ -52,6 +59,17 @@ ApplicationWindow {
             NotificationPage {
                 id: alerts
             }
+            ComposePage {
+                id: compose
+            }
+        }
+
+        Keyboard {
+            id: keyboard
+            target: activeFocusControl
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
         }
     }
 }
