@@ -27,10 +27,14 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        ImageButton {
-            padding: 10
-            offImage: '../images/HMI_Settings_X.svg'
-            onClicked: notificationModel.remove(index)
+        Image {
+            id: button
+            scale: 0.5
+            source: '../images/HMI_Settings_X.svg'
+            MouseArea {
+                anchors.fill: button
+                onClicked: notificationModel.remove(index)
+            }
         }
         Label {
             text: '<b>' + name + '</b>'
@@ -44,6 +48,20 @@ Item {
             anchors.right: parent.right
             font.pixelSize: 32
             wrapMode: Text.WordWrap
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        propagateComposedEvents: true
+        onClicked: {
+            mouse.accepted = false
+        }
+        onDoubleClicked: {
+            if (number) {
+                bar.setCurrentIndex(1)
+                compose.setNumber(number)
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ Item {
         target: messaging
 
         onNotificationEvent: {
-            notificationModel.append({"name": message.sender.fn, "message": message.message })
+            notificationModel.append({"name": message.sender.fn, "number": message.sender.tel, "message": message.message })
             notificationView.currentIndex = notificationModel.count - 1
         }
     }
