@@ -6,5 +6,6 @@
 	<file>ic_call_missed_48px.svg</file>
 	<file>ic_call_received_48px.svg</file>
 	<file>ic_call_made_48px.svg</file>
+	<file>HMI_Settings_X.svg</file>
     </qresource>
 </RCC>

@@ -17,6 +17,7 @@
 import QtQuick 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.4
+import AGL.Demo.Controls 1.0
 
 Item {
     height: msg.height
@@ -25,6 +26,12 @@ Item {
         id: msg
         anchors.left: parent.left
         anchors.right: parent.right
+
+        ImageButton {
+            padding: 10
+            offImage: '../images/HMI_Settings_X.svg'
+            onClicked: notificationModel.remove(index)
+        }
         Label {
             text: '<b>' + name + '</b>'
             font.pixelSize: 42
