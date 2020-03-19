@@ -37,10 +37,18 @@ Item {
             }
         }
         Label {
+            visible: name
             text: '<b>' + name + '</b>'
             font.pixelSize: 42
             wrapMode: Text.WordWrap
         }
+        Label {
+            visible: name === undefined
+            text: '<b>' + number + '</b>'
+            font.pixelSize: 42
+            wrapMode: Text.WordWrap
+        }
+
         Label {
             text: message
             anchors.margins: 5
