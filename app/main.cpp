@@ -24,7 +24,6 @@
 #include <QtQuickControls2/QQuickStyle>
 #include <QQuickWindow>
 #include <libhomescreen.hpp>
-#include <qlibwindowmanager.h>
 
 #include <map.h>
 
@@ -33,6 +32,7 @@ int main(int argc, char *argv[])
     QString graphic_role = QString("messaging");
 
     QGuiApplication app(argc, argv);
+    app.setDesktopFileName(graphic_role);
 
     QQuickStyle::setStyle("AGL");
 
@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
     parser.process(app);
     QStringList positionalArguments = parser.positionalArguments();
+
     if (positionalArguments.length() == 2) {
         int port = positionalArguments.takeFirst().toInt();
         QString secret = positionalArguments.takeFirst();
@@ -62,40 +63,7 @@ int main(int argc, char *argv[])
         Map *map = new Map(bindingAddress, context);
         context->setContextProperty("messaging", map);
 
-        LibHomeScreen* hs = new LibHomeScreen();
-        QLibWindowmanager* qwm = new QLibWindowmanager();
-
-        // WindowManager
-        if(qwm->init(port, secret) != 0){
-            exit(EXIT_FAILURE);
-        }
-
-        AGLScreenInfo screenInfo(qwm->get_scale_factor());
-
-        // Request a surface as described in layers.json windowmanager’s file
-        if (qwm->requestSurface(graphic_role) != 0) {
-            exit(EXIT_FAILURE);
-        }
-        // Create an event callback against an event type. Here a lambda is called when SyncDraw event occurs
-        qwm->set_event_handler(QLibWindowmanager::Event_SyncDraw, [qwm, graphic_role](json_object *object) {
-	        Q_UNUSED(object);
-            qwm->endDraw(graphic_role);
-        });
-
-        // HomeScreen
-        hs->init(port, token.c_str());
-        // Set the event handler for Event_ShowWindow which will activate the surface for windowmanager
-        hs->set_event_handler(LibHomeScreen::Event_ShowWindow, [qwm, &graphic_role](json_object *object){
-            qDebug("Surface %s got showWindow\n", graphic_role.toStdString().c_str());
-            qwm->activateWindow(graphic_role);
-        });
-
-        engine.rootContext()->setContextProperty("screenInfo", &screenInfo);
         engine.load(QUrl(QStringLiteral("qrc:/Messaging.qml")));
-        QObject *root = engine.rootObjects().first();
-        QQuickWindow *window = qobject_cast<QQuickWindow *>(root);
-        QObject::connect(window, SIGNAL(frameSwapped()), qwm, SLOT(slotActivateWindow()
-        ));
     }
     return app.exec();
 }
