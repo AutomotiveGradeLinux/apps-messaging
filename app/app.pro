@@ -1,10 +1,10 @@
 TARGET = messaging
-QT = quickcontrols2 websockets
+QT = quickcontrols2
 
 SOURCES = main.cpp
 
 CONFIG += link_pkgconfig
-PKGCONFIG += libhomescreen qtappfw-bt-map libafbwsc
+PKGCONFIG += qtappfw-bt-map libafbwsc
 
 CONFIG(release, debug|release) {
     QMAKE_POST_LINK = $(STRIP) --strip-unneeded $(TARGET)
