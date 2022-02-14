@@ -1,18 +1,12 @@
+TEMPLATE = aux
 
-DISTFILES = config.xml
+icon.path = /usr/share/icons/hicolor/scalable
+icon.files += $$_PRO_FILE_PWD_/messaging.svg
+icon.CONFIG = no_check_exist
 
-copy_config.target = $$OUT_PWD/root/config.xml
-copy_config.depends = $$_PRO_FILE_PWD_/config.xml
-copy_config.commands = $(COPY_FILE) \"$$replace(copy_config.depends, /, $$QMAKE_DIR_SEP)\" \"$$replace(copy_config.target, /, $$QMAKE_DIR_SEP)\"
-QMAKE_EXTRA_TARGETS += copy_config
-PRE_TARGETDEPS += $$copy_config.target
+desktop.path = /usr/share/applications
+desktop.files = $$_PRO_FILE_PWD_/messaging.desktop
+desktop.CONFIG = no_check_exist
 
-WGT_TYPE =
-CONFIG(debug, debug|release) {
-    WGT_TYPE = -debug
-}
-
-wgt.target = package
-wgt.commands = wgtpkg-pack -f -o messaging$${WGT_TYPE}.wgt root
-
-QMAKE_EXTRA_TARGETS += wgt
+#INSTALLS += desktop icon
+INSTALLS += desktop

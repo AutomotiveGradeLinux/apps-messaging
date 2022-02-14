@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 The Qt Company Ltd.
- * Copyright (C) 2019,2020 Konsulko Group
+ * Copyright (C) 2019,2020,2022 Konsulko Group
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
  */
 
 #include <QtCore/QDebug>
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QUrlQuery>
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
@@ -28,41 +26,19 @@
 
 int main(int argc, char *argv[])
 {
-    QString graphic_role = QString("messaging");
+	QString graphic_role = QString("messaging");
 
-    QGuiApplication app(argc, argv);
-    app.setDesktopFileName(graphic_role);
+	QGuiApplication app(argc, argv);
+	app.setDesktopFileName(graphic_role);
 
-    QQuickStyle::setStyle("AGL");
+	QQuickStyle::setStyle("AGL");
 
-    QQmlApplicationEngine engine;
-
-    QCommandLineParser parser;
-    parser.addPositionalArgument("port", app.translate("main", "port for binding"));
-    parser.addPositionalArgument("secret", app.translate("main", "secret for binding"));
-    parser.addHelpOption();
-    parser.addVersionOption();
-    parser.process(app);
-    QStringList positionalArguments = parser.positionalArguments();
-
-    if (positionalArguments.length() == 2) {
-        int port = positionalArguments.takeFirst().toInt();
-        QString secret = positionalArguments.takeFirst();
-            std::string token = secret.toStdString();
-        QUrl bindingAddress;
-        bindingAddress.setScheme(QStringLiteral("ws"));
-        bindingAddress.setHost(QStringLiteral("localhost"));
-        bindingAddress.setPort(port);
-        bindingAddress.setPath(QStringLiteral("/api"));
-        QUrlQuery query;
-        query.addQueryItem(QStringLiteral("token"), secret);
-        bindingAddress.setQuery(query);
-        QQmlContext *context = engine.rootContext();
-        context->setContextProperty(QStringLiteral("bindingAddress"), bindingAddress);
-        Map *map = new Map(bindingAddress, context);
+	QQmlApplicationEngine engine;
+	QQmlContext *context = engine.rootContext();
+        Map *map = new Map(context);
         context->setContextProperty("messaging", map);
 
         engine.load(QUrl(QStringLiteral("qrc:/Messaging.qml")));
-    }
-    return app.exec();
+
+	return app.exec();
 }

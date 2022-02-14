@@ -1,17 +1,18 @@
+TEMPLATE = app
 TARGET = messaging
-QT = quickcontrols2
+QT = qml quickcontrols2
+CONFIG += c++11 link_pkgconfig
 
 SOURCES = main.cpp
 
-CONFIG += link_pkgconfig
-PKGCONFIG += qtappfw-bt-map libafbwsc
-
-CONFIG(release, debug|release) {
-    QMAKE_POST_LINK = $(STRIP) --strip-unneeded $(TARGET)
-}
+PKGCONFIG += qtappfw-bt-map
 
 RESOURCES += \
     Messaging.qrc \
     images/images.qrc
 
-include(app.pri)
+target.path = /usr/bin
+target.files += $${OUT_PWD}/$${TARGET}
+target.CONFIG = no_check_exist executable
+
+INSTALLS += target
