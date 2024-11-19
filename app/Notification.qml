@@ -30,7 +30,7 @@ Item {
         Image {
             id: button
             scale: 0.5
-            source: '../images/HMI_Settings_X.svg'
+            source: 'qrc:/images/HMI_Settings_X.svg'
             MouseArea {
                 anchors.fill: button
                 onClicked: notificationModel.remove(index)

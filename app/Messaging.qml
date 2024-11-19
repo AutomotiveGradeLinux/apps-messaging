@@ -41,13 +41,13 @@ ApplicationWindow {
             contentHeight: 160
 
             TabImageButton {
-                icon: "./images/ic_contacts_48px.svg"
+                iconSource: "qrc:/images/ic_contacts_48px.svg"
                 text: "Alerts"
                 font.pixelSize: 50
             }
 
             TabImageButton {
-                icon: "./images/ic_contacts_48px.svg"
+                iconSource: "qrc:/images/ic_contacts_48px.svg"
                 text: "Compose"
                 font.pixelSize: 50
             }
